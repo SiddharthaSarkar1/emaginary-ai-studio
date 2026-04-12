@@ -11,4 +11,4 @@ if (!databaseUrl) {
 
 const sql = neon(databaseUrl);
 
-export const db = drizzle({ client: sql, schema });
+export const db = drizzle({ client: sql, schema }); //Basically creating an istance so that we can communicate with our db

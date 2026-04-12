@@ -5,3 +5,4 @@ npm i drizzle-kit --save-dev
 npm install @neondatabase/serverless
 npm i @imagekit/next @imagekit/nodejs
 npm i ai @ai-sdk/google
+npm i @huggingface/inference
