@@ -26,10 +26,10 @@ export function Footer() {
           <div className="flex flex-col gap-3 sm:flex-row">
             <Show when="signed-out">
               <SignUpButton mode="modal" fallbackRedirectUrl="/studio">
-                <Button type="button" className="gap-2 rounded-full px-5 py-3">
+                {/* <Button type="button" className="gap-2 rounded-full px-5 py-3">
                   Start in Studio
                   <ArrowUpRightIcon className="size-4" />
-                </Button>
+                </Button> */}
               </SignUpButton>
             </Show>
 
