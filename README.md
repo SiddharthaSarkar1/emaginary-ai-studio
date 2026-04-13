@@ -16,19 +16,6 @@ Transform your photos into stunning, campaign-ready visuals with Emaginary AI St
 
 ---
 
-## 💬 What People Are Saying
-
-> "This workflow completely changed how quickly we can turn original photos into polished campaign-ready visuals."
-> **— Briana Patton, Operations Manager**
-
-> "The interface is clear, the outputs are consistent, and the rollout across our team was surprisingly effortless."
-> **— Bilal Ahmed, IT Manager**
-
-> "Support has been thoughtful from the start, and the product already feels much more refined than most creative AI tools."
-> **— Saman Malik, Customer Support Lead**
-
----
-
 ## 🛠️ Tech Stack
 
 *   **Framework:** [Next.js](https://nextjs.org/)
