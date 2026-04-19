@@ -140,7 +140,7 @@ export function StudioControlsPanel() {
 
       <div className="studio-panel-inset mt-7 rounded-[1.8rem] border p-5">
         <div className="flex items-center justify-between gap-3">
-          <p className="text-[1.05rem] font-semibold text-foreground">3. Hugging Face model</p>
+          <p className="text-[1.05rem] font-semibold text-foreground">3. Available AI Models</p>
           <SparklesIcon className="size-4 text-primary" />
         </div>
 
@@ -164,7 +164,7 @@ export function StudioControlsPanel() {
         </div>
 
         <p className="mt-3 text-sm leading-6 text-muted-foreground">
-          Only image-to-image capable Hugging Face models are shown here, so generation stays compatible with your uploaded-image workflow.
+          Only image-to-image capable models are shown here, so generation stays compatible with your uploaded-image workflow.
         </p>
       </div>
 
@@ -173,10 +173,6 @@ export function StudioControlsPanel() {
       </p>
 
       <GenerateButton disabled={isGenerateDisabled} isLoading={isLoading} />
-
-      <p className="mt-5 text-center text-lg text-muted-foreground">
-        Styling is powered by Hugging Face image-to-image.
-      </p>
 
       {error ? (
         <div className="mt-5 rounded-[1.3rem] border border-red-400/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">

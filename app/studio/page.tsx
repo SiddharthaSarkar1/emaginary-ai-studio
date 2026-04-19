@@ -1,4 +1,5 @@
 import StudioWorkbench from "@/components/studio/workbench";
+import { TypeSelectionTab } from "@/components/TypeSelectionTab";
 import { Button } from "@/components/ui/button";
 import { listUserGenerationSummaries } from "@/db/generations";
 import { getGenerationQuotaSnapshot, MONTHLY_GENERATION_LIMITS } from "@/lib/generation-quota";
@@ -14,10 +15,10 @@ async function StudioPage() {
     userId != null
       ? await getGenerationQuotaSnapshot(has, userId)
       : {
-          limit: MONTHLY_GENERATION_LIMITS.free,
-          used: 0,
-          remaining: MONTHLY_GENERATION_LIMITS.free,
-        };
+        limit: MONTHLY_GENERATION_LIMITS.free,
+        used: 0,
+        remaining: MONTHLY_GENERATION_LIMITS.free,
+      };
 
   return (
     <main className="studio-shell min-h-screen px-4 py-4 sm:px-6 lg:px-8">
@@ -55,6 +56,10 @@ async function StudioPage() {
             </div>
           </div>
         </header>
+
+        <section className="flex justify-center items-center m-4 p-2">
+          <TypeSelectionTab />
+        </section>
 
         <StudioWorkbench
           clerkUserId={userId ?? ""}

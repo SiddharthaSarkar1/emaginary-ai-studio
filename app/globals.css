@@ -1,7 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+* {
+  font-family: "Outfit", sans-serif;
+}
 
 :root {
   --background: oklch(0.9856 0.0084 56.3169);
