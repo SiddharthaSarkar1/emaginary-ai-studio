@@ -1,5 +1,4 @@
 import StudioWorkbench from "@/components/studio/workbench";
-import { TypeSelectionTab } from "@/components/TypeSelectionTab";
 import { Button } from "@/components/ui/button";
 import { listUserGenerationSummaries } from "@/db/generations";
 import { getGenerationQuotaSnapshot, MONTHLY_GENERATION_LIMITS } from "@/lib/generation-quota";
@@ -56,10 +55,6 @@ async function StudioPage() {
             </div>
           </div>
         </header>
-
-        <section className="flex justify-center items-center m-4 p-2">
-          <TypeSelectionTab />
-        </section>
 
         <StudioWorkbench
           clerkUserId={userId ?? ""}

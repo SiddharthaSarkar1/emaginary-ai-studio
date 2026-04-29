@@ -5,16 +5,39 @@ import { StudioWorkbenchProps } from "@/lib/types";
 import { StudioControlsPanel } from "./controls-panel";
 import { StudioPreviewPanel } from "./preview-panel";
 import { HistoryPreviewDialog } from "./history-preview-dialog";
+import { TypeSelectionTab } from "../TypeSelectionTab";
+import { useState } from "react";
+import { StudioControlsPanelImageGen } from "./controls-panel-igen";
+import PromptToImageWorkbench from "./prompt-workbench";
 
 function StudioWorkbench({ clerkUserId, initialHistory, initialQuota }: StudioWorkbenchProps) {
+  const [value, setValue] = useState("imagetoimage")
+
   return (
-    <StudioWorkbenchProvider
-      clerkUserId={clerkUserId}
-      initialHistory={initialHistory}
-      initialQuota={initialQuota}
-    >
-      <StudioWorkbenchForm />
-    </StudioWorkbenchProvider>
+
+    <>
+
+      <section className="flex justify-center items-center m-4 p-2">
+        <TypeSelectionTab value={value} setValue={setValue} />
+      </section>
+
+      {value === "imagetoimage" && <StudioWorkbenchProvider
+        clerkUserId={clerkUserId}
+        initialHistory={initialHistory}
+        initialQuota={initialQuota}
+      >
+        <StudioWorkbenchForm />
+      </StudioWorkbenchProvider>}
+
+      {value === "texttoimage" && <StudioWorkbenchProvider
+        clerkUserId={clerkUserId}
+        initialHistory={initialHistory}
+        initialQuota={initialQuota}
+      >
+       <PromptToImageWorkbench />
+      </StudioWorkbenchProvider>}
+    </>
+
   );
 }
 

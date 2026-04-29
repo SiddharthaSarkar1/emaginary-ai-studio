@@ -15,8 +15,12 @@ const TABS = [
     },
 ]
 
-export function TypeSelectionTab() {
-    const [value, setValue] = useState("imagetoimage")
+interface TypeSelectionTabProps {
+    value: string
+    setValue: (value: string) => void
+}
+
+export function TypeSelectionTab({ value, setValue }: TypeSelectionTabProps) {
 
     return (
         <Tabs value={value} onValueChange={setValue}>
