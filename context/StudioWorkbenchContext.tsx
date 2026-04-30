@@ -40,6 +40,10 @@ type StudioWorkbenchContextValue = {
   replaceFile: (nextFile: File | null) => void;
   selectModel: (model: HuggingFaceImageModel) => void;
   selectStyle: (styleSlug: string) => void;
+
+  prompt: string;
+  setPrompt: (prompt: string) => void;
+  handlePromptToImageSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 };
 
 const StudioWorkbenchContext = createContext<StudioWorkbenchContextValue | null>(null);
@@ -104,6 +108,7 @@ function useStudioWorkbenchValue({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [quota, setQuota] = useState<GenerationQuotaSnapshot>(initialQuota);
+  const [prompt, setPrompt] = useState<string>("");
 
   // this will create a preview of the image when the file is uploaded
   useEffect(() => {
@@ -230,6 +235,35 @@ function useStudioWorkbenchValue({
     }
   }
 
+  const handlePromptToImageSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!prompt || !selectedModel || isLoading) return;
+
+      setSourcePreview(null); 
+
+      try {
+        const response = await fetch("/api/prompt-to-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt, model: selectedModel }),
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || "Failed to generate image.");
+        }
+
+        const result = await response.json();
+        setSourcePreview(result.imageUrl); // Use sourcePreview to display the result
+        setQuota((prev) => ({ ...prev, remaining: prev.remaining - 1, used: prev.used + 1 }));
+        setHistory((prev) => [result, ...prev]);
+      } catch (err) {
+        if (err instanceof Error) setError(err.message);
+        else setError("An unknown error occurred.");
+      }
+    }
+
+
   return {
     closeHistoryPreview,
     error,
@@ -250,5 +284,8 @@ function useStudioWorkbenchValue({
     selectStyle: setSelectedStyle,
     sourcePreview,
     viewedHistoryItem,
+    prompt,
+    setPrompt,
+    handlePromptToImageSubmit
   };
 }

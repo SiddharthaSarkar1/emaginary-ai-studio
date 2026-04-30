@@ -14,9 +14,7 @@ function StudioWorkbench({ clerkUserId, initialHistory, initialQuota }: StudioWo
   const [value, setValue] = useState("imagetoimage")
 
   return (
-
     <>
-
       <section className="flex justify-center items-center m-4 p-2">
         <TypeSelectionTab value={value} setValue={setValue} />
       </section>
@@ -34,7 +32,7 @@ function StudioWorkbench({ clerkUserId, initialHistory, initialQuota }: StudioWo
         initialHistory={initialHistory}
         initialQuota={initialQuota}
       >
-       <PromptToImageWorkbench />
+        <PromptToImageWorkbench />
       </StudioWorkbenchProvider>}
     </>
 

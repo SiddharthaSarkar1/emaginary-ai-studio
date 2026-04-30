@@ -1,52 +1,49 @@
+"use client";
+
 import Image from "next/image";
-import { CircleDotIcon } from "lucide-react";
+import { CircleDotIcon, SparklesIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { useStudioWorkbench } from "@/context/StudioWorkbenchContext";
-import { HistoryCard, PreviewFrame, ResultPreviewFrame } from "./workbench-ui";
+import { HistoryCard, PreviewFrame } from "./workbench-ui";
 
 export function StudioPreviewPanelPromptToImage() {
-  const { history, isLoading, openHistoryPreview, resultPreview, selectedPreset, sourcePreview } =
-    useStudioWorkbench();
+  const { history, isLoading, openHistoryPreview, sourcePreview } = useStudioWorkbench();
 
   return (
     <section className="studio-panel rounded-[2rem] border p-5 sm:p-7">
       <div>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground">Preview</h2>
         <p className="mt-2 text-base text-muted-foreground sm:text-xl">
-          Here is the generated image.
+          Your generated image will appear here.
         </p>
       </div>
 
       <div className="studio-panel-inset mt-7 rounded-[1.9rem] border p-5 sm:p-6">
-        <div className="">
-          <div className="">
-            <PreviewFrame label="AI Generated Image">
-              {sourcePreview ? (
-                <Image
-                  src={sourcePreview}
-                  alt="Uploaded source preview"
-                  fill
-                  unoptimized
-                  className="object-cover"
-                />
-              ) : (
-                <Image
-                  src="/original.png"
-                  alt="Original example preview"
-                  fill
-                  className="object-cover"
-                />
-              )}
-            </PreviewFrame>
-          </div>
-        </div>
+        <PreviewFrame label="AI Generated Image">
+          {isLoading ? (
+            <Skeleton className="h-full w-full" />
+          ) : sourcePreview ? (
+            <Image
+              src={sourcePreview}
+              alt="AI Generated Image"
+              fill
+              unoptimized
+              className="object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-background/25">
+              <SparklesIcon className="size-16 text-muted-foreground/50" />
+            </div>
+          )}
+        </PreviewFrame>
       </div>
 
       <div className="mt-6 flex items-start gap-3 text-lg text-muted-foreground">
         <CircleDotIcon className="mt-1 size-5 shrink-0 text-primary" />
-        <p>The result is generated directly with the help of AI.</p>
+        <p>The result is generated directly from your text prompt with the help of AI.</p>
       </div>
 
       <div className="studio-panel-inset mt-8 rounded-[1.9rem] border p-5 sm:p-6">
@@ -74,8 +71,8 @@ export function StudioPreviewPanelPromptToImage() {
             ))}
           </div>
         ) : (
-          <div className="mt-5 rounded-[1.4rem] border border-dashed border-border/35 bg-background/15 px-4 py-6 text-sm text-muted-foreground">
-            Your generation history will appear here after your first successful result.
+          <div className="mt-5 rounded-[1.4rem] border border-dashed border-border/35 bg-background/15 px-4 py-6 text-center text-sm text-muted-foreground">
+            Your generation history will appear here.
           </div>
         )}
       </div>
