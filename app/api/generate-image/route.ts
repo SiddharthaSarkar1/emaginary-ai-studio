@@ -67,6 +67,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Missing HUGGING_FACE_API_KEY." }, { status: 500 });
     }
 
+    console.log(hf)
+
     const body = (await request.json()) as GenerateImageRequest;
 
     const { model, originalFileName, sourceImageUrl, sourceMimeType, styleSlug } = body;
@@ -114,7 +116,7 @@ export async function POST(request: Request) {
         const imageBlob = new Blob([imageBuffer], { type: sourceMimeType! });
 
         const resultImageBlob = await hf.imageToImage({
-            model: model!,
+            model: "oumoumad/LumiPic:fastest",
             inputs: imageBlob,
             parameters: {
                 prompt: prompt,

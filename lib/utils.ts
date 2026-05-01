@@ -17,6 +17,7 @@ export function formatHistoryDate(value: string | Date) {
 
 /** fetch remote image and trigger a file download.*/
 export async function downloadImageFromUrl(url: string, filename: string) {
+  const currentTimestamp = new Date().getTime();
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Could not download image.");
@@ -25,7 +26,7 @@ export async function downloadImageFromUrl(url: string, filename: string) {
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = objectUrl;
-  anchor.download = filename;
+  anchor.download = `${currentTimestamp}-result.png`
   anchor.rel = "noopener";
   anchor.click();
   URL.revokeObjectURL(objectUrl);

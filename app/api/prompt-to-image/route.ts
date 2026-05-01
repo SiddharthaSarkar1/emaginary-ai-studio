@@ -1,11 +1,12 @@
-import { countGenerationsSince, utcMonthStart } from "@/db/generations";
+import { countGenerationsSince, createGeneration, utcMonthStart } from "@/db/generations";
 import { HuggingFaceImageModel } from "@/lib/ai-image-models";
 import { hf } from "@/lib/aiSetup";
 import { getMonthlyGenerationLimit } from "@/lib/generation-quota";
+import { uploadBufferToImageKit } from "@/lib/imagekit";
 import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const { userId, has } = await auth();
 
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
 
         const body = await req.json();
-        const { prompt, model } = body;
+        const { prompt, model } = body as { prompt: string; model: HuggingFaceImageModel };
 
         if (!prompt) {
             return new NextResponse("Prompt is required", { status: 400 });
@@ -59,27 +60,38 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const buffer = Buffer.from(arrayBuffer);
         const dataUrl = `data:${hfResponse.type};base64,${buffer.toString("base64")}`;
 
-        // const generation = await saveGeneration({
-        //     userId,
-        //     prompt: prompt,
-        //     model: model,
-        //     imageUrl: dataUrl,
-        //     style: 'text-to-image'
-        // });
+        const currentTimestamp = new Date().getTime();
 
-        // return NextResponse.json({
-        //     id: generation.id,
-        //     imageUrl: dataUrl
-        // });
+        const { url: resultImageUrl } = await uploadBufferToImageKit({
+            buffer: buffer,
+            fileName: `${userId}-${currentTimestamp}-result.png`,
+            folder: `/users/${userId}/results`,
+            mimeType: "image/png",
+        });
+
+        const savedGeneration = await createGeneration({
+            clerkUserId: userId,
+            resultImageUrl,
+            model,
+            promptUsed: prompt,
+        });
+
+        return NextResponse.json({ imageUrl: dataUrl }, { status: 200 });
 
     } catch (error: any) {
-        console.error("prompt-to-image api error");
+        console.error("prompt-to-image api error:", error?.message ?? error);
+
         if (error instanceof Error && error.message.includes("is currently loading")) {
             return new NextResponse(
                 "The model is currently loading, please try again in a moment.",
                 { status: 503 },
             );
         }
-        return new NextResponse("Internal Server Error", { status: 500 });
+        const message =
+            process.env.NODE_ENV === "development"
+                ? (error?.message ?? "Internal Server Error")
+                : "Internal Server Error";
+
+        return new NextResponse(message, { status: 500 });
     }
 }

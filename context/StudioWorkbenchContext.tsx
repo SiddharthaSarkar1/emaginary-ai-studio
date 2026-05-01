@@ -240,7 +240,7 @@ function useStudioWorkbenchValue({
     if (!prompt || !selectedModel || isLoading) return;
 
       setSourcePreview(null); 
-
+      setIsLoading(true);
       try {
         const response = await fetch("/api/prompt-to-image", {
           method: "POST",
@@ -260,6 +260,8 @@ function useStudioWorkbenchValue({
       } catch (err) {
         if (err instanceof Error) setError(err.message);
         else setError("An unknown error occurred.");
+      }finally{
+        setIsLoading(false);
       }
     }
 
