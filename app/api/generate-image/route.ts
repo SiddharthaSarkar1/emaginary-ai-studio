@@ -116,7 +116,7 @@ export async function POST(request: Request) {
         const imageBlob = new Blob([imageBuffer], { type: sourceMimeType! });
 
         const resultImageBlob = await hf.imageToImage({
-            model: "oumoumad/LumiPic:fastest",
+            model: "stabilityai/stable-diffusion-xl-instruct-pix2pix",
             inputs: imageBlob,
             parameters: {
                 prompt: prompt,

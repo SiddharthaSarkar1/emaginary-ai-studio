@@ -5,10 +5,10 @@ export type GenerationHistorySummaryItem = {
   id: string;
   clerkUserId: string;
   originalFileName: string | null;
-  sourceImageUrl: string;
+  sourceImageUrl: string | null;
   resultImageUrl: string;
-  styleSlug: string;
-  styleLabel: string;
+  styleSlug: string | null;
+  styleLabel: string | null;
   model: string;
   promptUsed: string;
   createdAt: Date | string;

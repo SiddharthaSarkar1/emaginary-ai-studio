@@ -58,7 +58,6 @@ export async function POST(req: NextRequest) {
 
         const arrayBuffer = await hfResponse.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
-        const dataUrl = `data:${hfResponse.type};base64,${buffer.toString("base64")}`;
 
         const currentTimestamp = new Date().getTime();
 
@@ -76,7 +75,7 @@ export async function POST(req: NextRequest) {
             promptUsed: prompt,
         });
 
-        return NextResponse.json({ imageUrl: dataUrl }, { status: 200 });
+        return NextResponse.json(savedGeneration);
 
     } catch (error: any) {
         console.error("prompt-to-image api error:", error?.message ?? error);

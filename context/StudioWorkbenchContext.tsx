@@ -20,6 +20,7 @@ import {
   UploadedSource,
 } from "@/lib/types";
 
+
 type StudioWorkbenchContextValue = {
   error: string | null;
   file: File | null;
@@ -124,8 +125,7 @@ function useStudioWorkbenchValue({
   }, [file]);
 
   const resultPreview = result ? `data:${result.mimeType};base64,${result.imageBase64}` : null;
-  const selectedPreset =
-    stylePresets.find((preset) => preset.slug === selectedStyle) ?? stylePresets[0];
+  const selectedPreset = stylePresets.find((preset) => preset.slug === selectedStyle) ?? stylePresets[0];
   const isGenerateDisabled = isLoading || !file || quota.remaining <= 0;
 
   function resetGenerationState() {
@@ -239,31 +239,31 @@ function useStudioWorkbenchValue({
     event.preventDefault();
     if (!prompt || !selectedModel || isLoading) return;
 
-      setSourcePreview(null); 
-      setIsLoading(true);
-      try {
-        const response = await fetch("/api/prompt-to-image", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt, model: selectedModel }),
-        });
+    setSourcePreview(null);
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/prompt-to-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, model: selectedModel }),
+      });
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          throw new Error(errorText || "Failed to generate image.");
-        }
-
-        const result = await response.json();
-        setSourcePreview(result.imageUrl); // Use sourcePreview to display the result
-        setQuota((prev) => ({ ...prev, remaining: prev.remaining - 1, used: prev.used + 1 }));
-        setHistory((prev) => [result, ...prev]);
-      } catch (err) {
-        if (err instanceof Error) setError(err.message);
-        else setError("An unknown error occurred.");
-      }finally{
-        setIsLoading(false);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Failed to generate image.");
       }
+
+      const result = await response.json() as GenerationHistorySummaryItem;
+      setSourcePreview(result.resultImageUrl);
+      setQuota((prev) => ({ ...prev, remaining: prev.remaining - 1, used: prev.used + 1 }));
+      setHistory((prev) => [result, ...prev]);
+    } catch (err) {
+      if (err instanceof Error) setError(err.message);
+      else setError("An unknown error occurred.");
+    } finally {
+      setIsLoading(false);
     }
+  }
 
 
   return {

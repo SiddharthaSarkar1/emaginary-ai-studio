@@ -58,7 +58,7 @@ export function HistoryPreviewDialog({
                 value={huggingFaceImageModelLabels[item.model as HuggingFaceImageModel] ?? item.model}
               />
               <HistoryMetaRow label="Generated" value={formatHistoryDate(item.createdAt)} />
-              <HistoryMetaRow label="Style" value={item.styleLabel} />
+              {item?.styleLabel && <HistoryMetaRow label="Style" value={item?.styleLabel} />}
               <HistoryMetaRow
                 label="Source File"
                 value={item.originalFileName ?? "Uploaded image"}
