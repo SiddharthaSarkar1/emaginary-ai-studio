@@ -41,7 +41,7 @@ function HomeHeroSection() {
                                 Emaginary AI Studio
                             </span>
                             <span className="caps-xs block truncate text-xs uppercase text-muted-foreground">
-                                AI image restyling
+                                AI image tailor
                             </span>
                         </div>
                     </Link>
@@ -106,16 +106,12 @@ function HomeHeroSection() {
                         </Show>
 
                         <Show when="signed-in">
-                            <Button asChild className="home-btn-hero-primary">
+                            <Button asChild className="home-btn-hero-primary p-8 border border-gray-300 text-lg">
                                 <Link href="/studio" prefetch={false}>
-                                    Open Studio
+                                    Open Your Studio 
                                 </Link>
                             </Button>
                         </Show>
-
-                        <Button asChild variant="ghost" className="hero-pill home-btn-hero-ghost">
-                            <a href="#how-it-works">Watch 2min demo</a>
-                        </Button>
                     </div>
                 </div>
 

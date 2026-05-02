@@ -39,10 +39,8 @@ export const SHOWCASE_BG_VIDEO_SRC =
 export const CENTER_NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Pricing", href: "#pricing" },
-  { label: "Styles", href: "#styles", chevron: true },
+  { label: "Styles", href: "#styles" },
   { label: "How it works", href: "#how-it-works" },
-  { label: "Privacy", href: "/privacy" },
-  { label: "FAQ", href: "#faq" },
 ] as const;
 
 export const FOOTER_QUICK_LINKS = [
