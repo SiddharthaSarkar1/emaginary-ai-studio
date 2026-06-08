@@ -1,0 +1,16 @@
+# Ignore node_modules, it will be installed in the container
+node_modules
+
+# Ignore build outputs
+.next
+out
+
+# Ignore local development files
+.env.local
+
+# Ignore logs
+npm-debug.log*
+*.log
+
+# Ignore test files
+__tests__

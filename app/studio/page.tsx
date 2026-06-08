@@ -41,15 +41,6 @@ async function StudioPage() {
           </Link>
 
           <div className="flex items-center gap-3 self-end sm:self-auto">
-            <Button
-              variant="outline"
-              type="button"
-              tabIndex={-1}
-              className="studio-pill-strong pointer-events-none rounded-full px-4 py-2 text-sm"
-            >
-              Studio
-            </Button>
-
             <div className="studio-pill-strong flex items-center justify-center rounded-full border p-1">
               <UserButton />
             </div>

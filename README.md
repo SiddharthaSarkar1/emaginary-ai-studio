@@ -40,7 +40,7 @@ Make sure you have [Node.js](https://nodejs.org/en) (v18 or later) installed on 
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/emaginary-ai-studio.git
+git clone https://github.com/SiddharthaSarkar1/emaginary-ai-studio.git
 cd emaginary-ai-studio
 ```
 

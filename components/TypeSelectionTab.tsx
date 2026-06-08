@@ -6,12 +6,12 @@ import { cn } from "@/lib/utils"
 
 const TABS = [
     {
-        value: "imagetoimage",
-        label: "Image To Image",
-    },
-    {
         value: "texttoimage",
         label: "Text To Image",
+    },
+    {
+        value: "imagetoimage",
+        label: "Image To Image",
     },
 ]
 

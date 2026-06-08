@@ -11,7 +11,7 @@ import { StudioControlsPanelImageGen } from "./controls-panel-igen";
 import PromptToImageWorkbench from "./prompt-workbench";
 
 function StudioWorkbench({ clerkUserId, initialHistory, initialQuota }: StudioWorkbenchProps) {
-  const [value, setValue] = useState("imagetoimage")
+  const [value, setValue] = useState("texttoimage")
 
   return (
     <>
