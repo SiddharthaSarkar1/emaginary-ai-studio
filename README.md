@@ -4,6 +4,16 @@ Transform your photos into stunning, campaign-ready visuals with Emaginary AI St
 
 ---
 
+### ✨ Screenshots
+
+
+![Homepage](demo-images/emaginary.home.png)
+![Studio](demo-images/emaginary2.png)
+![Image Generation](demo-images/emaginary3.png)
+![View Generated Image](demo-images/emaginary6.png)
+
+---
+
 ## ✨ Features
 
 *   **Effortless Image Upload:** Supports JPG, PNG, and WEBP file formats.
